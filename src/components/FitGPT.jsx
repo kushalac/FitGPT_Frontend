@@ -18,10 +18,14 @@ const FitGPT = () => {
 
   const handleQuestionnaireSubmit = (formData) => {
     setLoading(true); // Show loader during API call
-
     // Make API call with questionnaire data
     axios
-      .post('http://localhost:8000/api/heart-data', formData)
+      .post('http://localhost:8000/api/heart-data', formData, {
+        headers: {
+          'Content-Type': 'application/json', // Ensure the backend recognizes the request body
+        },
+        withCredentials: true, // Include credentials if needed for cookies or authentication
+      })
       .then((response) => {
         setData(response.data);
         setShowQuestionnaire(false); // Move to the main component
